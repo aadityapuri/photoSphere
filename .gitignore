@@ -1,0 +1,22 @@
+# Node dependencies
+photosphere-frontend/node_modules/
+photosphere-backend/node_modules/
+
+# Build outputs
+photosphere-frontend/dist/
+photosphere-backend/dist/
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+
+# Environment variables
+photosphere-frontend/.env
+photosphere-backend/.env
+.env
+
+# OS / Editor stuff
+.DS_Store
+Thumbs.db
+.vscode/
