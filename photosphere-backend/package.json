@@ -6,6 +6,7 @@
     "build": "tsc",
     "start": "node dist/server.js",
     "dev": "ts-node-dev src/server.ts",
+    "swagger": "npx tsoa spec && npx tsoa routes && npx tsc && node fix-extensions.mjs && node dist/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
