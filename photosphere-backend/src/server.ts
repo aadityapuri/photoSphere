@@ -2,16 +2,16 @@ import express from 'express';
 import cors from 'cors';
 import swaggerUi from 'swagger-ui-express';
 import connectDB from './config/db.js';
-import swaggerSpec from './config/swagger.js';
-import authRoutes from './routes/authRoutes.js';
+import swaggerDocument from './config/swagger.js';
+import { RegisterRoutes } from './routes/routes.js';
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-app.use('/api/auth', authRoutes);
+RegisterRoutes(app);
 
 connectDB();
 
