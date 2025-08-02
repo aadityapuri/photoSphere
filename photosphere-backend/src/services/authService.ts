@@ -27,4 +27,25 @@ async function signUp ({fullName, userName, password, email, phone} : {fullName:
   return newUser;
 }
 
+async function login({username, password}: {username: string, password: string}) {
+  if(!username || !password) throw new Error('Username and password are required');
+  const loginField = detectLoginField(username);
+  const user = await User.findOne({ [loginField]: username });
+
+  if(!user) throw new Error('User not found');
+  const isPasswordValid = await bcrypt.compare(password, user.password);
+  if(!isPasswordValid) throw new Error('Invalid password');
+  
+  return user;
+}
+
+function detectLoginField(identifier: string) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const phoneRegex = /^\d{10}$/;
+
+  if (emailRegex.test(identifier)) return 'email';
+  if (phoneRegex.test(identifier)) return 'phone';
+  return 'userName';
+}
+
 export default {signUp};
