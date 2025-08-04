@@ -15,10 +15,10 @@ function LoginForm() {
     console.log('Password:', password);
   };
   return (
-    <div className="login-form flex flex-col items-center justify-center p-4 mx-auto md:h-screen lg:py-0">
+    <div className="login-form flex flex-col items-center justify-center p-4 mx-auto min-h-screen overflow-auto lg:py-5">
       <div className="logo flex flex-col items-center justify-center mx-auto lg:py-0">
         <a href="/" className="flex text-2xl font-bold items-center">
-          <div className="w-15 h-15 rounded-full bg-purple-600 flex items-center justify-center">
+          <div className="w-15 h-15 rounded-full bg-purple-600 flex items-center justify-center mx-2">
             <ImCamera className="text-4xl" color="white" />
           </div>
           <h1 className="text-3xl font-bold text-purple-600 ml-2">PhotoSphere</h1>
