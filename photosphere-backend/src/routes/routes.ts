@@ -12,7 +12,7 @@ import type { Request as ExRequest, Response as ExResponse, RequestHandler, Rout
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 
 const models: TsoaRoute.Models = {
-    "createUserDto": {
+    "createUserRequestDto": {
         "dataType": "refObject",
         "properties": {
             "fullName": {"dataType":"string","required":true},
@@ -23,6 +23,15 @@ const models: TsoaRoute.Models = {
             "bio": {"dataType":"string"},
             "password": {"dataType":"string","required":true},
             "confirmPassword": {"dataType":"string","required":true},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "verifyUserRequestDto": {
+        "dataType": "refObject",
+        "properties": {
+            "userName": {"dataType":"string","required":true},
+            "password": {"dataType":"string","required":true},
         },
         "additionalProperties": false,
     },
@@ -45,7 +54,7 @@ export function RegisterRoutes(app: Router) {
 
     
         const argsAuthController_registerUser: Record<string, TsoaRoute.ParameterSchema> = {
-                body: {"in":"body","name":"body","required":true,"ref":"createUserDto"},
+                body: {"in":"body","name":"body","required":true,"ref":"createUserRequestDto"},
         };
         app.post('/api/auth/register',
             ...(fetchMiddlewares<RequestHandler>(AuthController)),
@@ -63,6 +72,36 @@ export function RegisterRoutes(app: Router) {
 
               await templateService.apiHandler({
                 methodName: 'registerUser',
+                controller,
+                response,
+                next,
+                validatedArgs,
+                successStatus: undefined,
+              });
+            } catch (err) {
+                return next(err);
+            }
+        });
+        // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+        const argsAuthController_Login: Record<string, TsoaRoute.ParameterSchema> = {
+                body: {"in":"body","name":"body","required":true,"ref":"verifyUserRequestDto"},
+        };
+        app.post('/api/auth/login',
+            ...(fetchMiddlewares<RequestHandler>(AuthController)),
+            ...(fetchMiddlewares<RequestHandler>(AuthController.prototype.Login)),
+
+            async function AuthController_Login(request: ExRequest, response: ExResponse, next: any) {
+
+            // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+
+            let validatedArgs: any[] = [];
+            try {
+                validatedArgs = templateService.getValidatedArgs({ args: argsAuthController_Login, request, response });
+
+                const controller = new AuthController();
+
+              await templateService.apiHandler({
+                methodName: 'Login',
                 controller,
                 response,
                 next,
