@@ -128,6 +128,7 @@
 											"type": "number",
 											"format": "double"
 										},
+										"token": {},
 										"user": {},
 										"message": {
 											"type": "string"

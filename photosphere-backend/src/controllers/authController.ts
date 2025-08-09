@@ -28,13 +28,14 @@ export class AuthController extends Controller{
   }
 
   @Post('login')
-  public async Login(@Body() body: verifyUserRequestDto): Promise<{message?:string, user?:any, statusCode?:number}>{
+  public async Login(@Body() body: verifyUserRequestDto): Promise<{message?:string, user?:any, token?:any, statusCode?:number}>{
     try {
       const { userName, password } = body;
-
+      const { user, token } = await authService.login({ username: userName, password });
       return {
         message: 'User logged in successfully',
-        user: { userName }, // Placeholder for user data
+        user: { user }, // Placeholder for user data
+        token: { token },
         statusCode: 200
       };
     } catch (error: any) {
