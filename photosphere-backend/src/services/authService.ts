@@ -1,3 +1,4 @@
+import { generateToken } from "../common/auth/generate-token.js";
 import User from "../models/User.js";
 import bcrypt from 'bcryptjs';
 
@@ -23,8 +24,9 @@ async function signUp ({fullName, userName, password, email, phone} : {fullName:
   });
 
   await newUser.save();
+  const token = generateToken(newUser._id.toString());
 
-  return newUser;
+  return { newUser, token };
 }
 
 async function login({username, password}: {username: string, password: string}) {
@@ -36,7 +38,11 @@ async function login({username, password}: {username: string, password: string})
   const isPasswordValid = await bcrypt.compare(password, user.password);
   if(!isPasswordValid) throw new Error('Invalid password');
   
-  return user;
+  const token = generateToken(user._id.toString());
+  if (!token) {
+    throw new Error('Failed to generate token');
+  }
+  return { user, token };
 }
 
 function detectLoginField(identifier: string) {
@@ -48,4 +54,4 @@ function detectLoginField(identifier: string) {
   return 'userName';
 }
 
-export default {signUp};
+export default { signUp, login };
